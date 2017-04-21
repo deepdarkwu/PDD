@@ -6,10 +6,7 @@ import tool.JdbcConn;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -30,15 +27,14 @@ public class Login extends HttpServlet {
         out.println(request.getParameter("id")+" "+request.getParameter("password"));
         out.println(users.size());
         for(User u:users){
-            out.println(u.getName()+" "+u.getPassword());
-            if(u.getName().equals(request.getParameter("id"))){
+            out.println(u.getId()+" "+u.getPassword());
+            if(u.getId().equals(request.getParameter("id"))){
                 out.println("*");
                 if(u.getPassword().equals(request.getParameter("password"))){
                     out.println("**");
                     request.setAttribute("user", u);
-                    Cookie cookie = new Cookie("user", URLEncoder.encode(u.getNiname(), "UTF-8"));
-                    response.addCookie(cookie);
-
+                    HttpSession session=request.getSession();//返回与当前request相关联的session，如果没有则在服务器端创建一个;
+                    session.setAttribute("user",u);
                     flag=2;
                     break;
                 }
@@ -48,12 +44,13 @@ public class Login extends HttpServlet {
         }
         if(flag==2){
             response.setHeader("content-type","text/html;charset=UTF-8");
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("main.jsp");
             view.forward(request, response);
-        }else{
+        }else if(flag==1){
 
-            out.print("wrong");
-            out.close();
+            response.sendRedirect("login.jsp?flag=1");
+        }else{
+            response.sendRedirect("login.jsp?flag=0");
         }
     }
 

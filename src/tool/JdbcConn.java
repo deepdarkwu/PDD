@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import bean.User;
 public class JdbcConn {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://localhost/EMP?characterEncoding=utf-8";
+	   static final String DB_URL = "jdbc:mysql://localhost/ddf?characterEncoding=utf-8";
 	   //  Database credentials
 	   static final String USER = "root";
 	   static final String PASS = "";
@@ -25,8 +25,8 @@ public class JdbcConn {
 		   }
 	   }
 	   
-	   public boolean add(String name,String password,String niname){
-		   String sql="insert into users(name,password,niname) values('"+name+"','"+password+"','"+niname+"')";
+	   public boolean add(String id,String name,String password){
+		   String sql="insert into users(id,name,password) values('"+id+"','"+name+"','"+password+"')";
 		   try {
 			int i=stmt.executeUpdate(sql);
 			System.out.println(i);
@@ -50,7 +50,12 @@ public class JdbcConn {
 		      ResultSet rs = stmt.executeQuery(sql);
 		      //STEP 5: Extract data from result set
 		      while(rs.next()){
-		    	  User u= new User(rs.getInt("id"),rs.getString("name"),rs.getString("password"),rs.getString("niname"));
+		    	  User u= new User(rs.getString("id"),
+						  rs.getString("name"),
+						  rs.getString("password"),
+						  rs.getString("phone"),
+						  rs.getString("qq"),
+						  rs.getString("mail"));
 		    	  users.add(u);
 		      }
 		   }catch(Exception e){
