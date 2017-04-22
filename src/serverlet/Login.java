@@ -34,7 +34,9 @@ public class Login extends HttpServlet {
                     out.println("**");
                     request.setAttribute("user", u);
                     HttpSession session=request.getSession();//返回与当前request相关联的session，如果没有则在服务器端创建一个;
+                    session.setMaxInactiveInterval(18000);
                     session.setAttribute("user",u);
+
                     flag=2;
                     break;
                 }

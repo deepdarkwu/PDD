@@ -1,111 +1,124 @@
 package serverlet;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by wzf on 2017/4/21.
- */
-@WebServlet(name = "Servl")
-public class Homework extends HttpServlet {
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.User;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+public class Homework extends HttpServlet{
     private static final long serialVersionUID = 1L;
 
-    // 上传文件存储目录
-    private static final String UPLOAD_DIRECTORY = "upload";
+    private static final String UPLOAD_DIRECTORY="upload";
 
-    // 上传配置
-    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
-    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
-    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
+    private static final int MEMORY_THRESHOLD = 1024*1024*3;
+    private static final int MAX_FILE_SIZE = 1024*1024*40;
+    private static final int MAX_REQUEST_SIZE = 1024*1024*50;
 
-    /**
-     * 上传数据及保存文件
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String subject;
 
-        // 检测是否为多媒体上传
-        if (!ServletFileUpload.isMultipartContent(request)) {
-            // 如果不是则停止
+    protected void doPost(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
+
+        //request.setCharacterEncoding("uft-8");
+        response.setContentType("text/html；charset=utf-8");
+
+
+//表单是否符合文件上传规则
+//判断客户端请求是否为POST，并且enctype属性是否是“multipart/form-data"
+        if(!ServletFileUpload.isMultipartContent(request)){
             PrintWriter writer = response.getWriter();
-            writer.println("Error: 表单必须包含 enctype=multipart/form-data");
+            writer.println("错误: 表单必须有 enctype=multipart/form-data.");
             writer.flush();
             return;
         }
-
-        // 配置上传参数
+//文件工厂类 判定初始文件内存以及文件超过内存时临时存放的位置
         DiskFileItemFactory factory = new DiskFileItemFactory();
-        // 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
+//以byte为单位设定文件使用多少内存量后，将文件存入临时存储
         factory.setSizeThreshold(MEMORY_THRESHOLD);
-        // 设置临时存储目录
+//设定临时文件的存储路径
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
+//ServletFileUpload 处理同意HTML文件中多文件上传的类，继承自FileUpload
         ServletFileUpload upload = new ServletFileUpload(factory);
-
-        // 设置最大文件上传值
-        upload.setFileSizeMax(MAX_FILE_SIZE);
-
-        // 设置最大请求值 (包含文件和表单数据)
+//设置允许上传文件的最大大小
         upload.setSizeMax(MAX_REQUEST_SIZE);
 
-        // 中文处理
-        upload.setHeaderEncoding("UTF-8");
+        String uploadPath = "C:\\Users\\wzf\\Desktop\\upload"+File.separator ;
 
-        // 构造临时路径来存储上传的文件
-        // 这个路径相对当前应用的目录
-        String uploadPath = getServletContext().getRealPath("./") + File.separator + UPLOAD_DIRECTORY;
+//根据存储路径生成文件夹
 
+        try{
+            List<FileItem> formItems = upload.parseRequest(request);
 
-        // 如果目录不存在则创建
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
-
-        try {
-            // 解析请求的内容提取文件数据
-            @SuppressWarnings("unchecked")
-            List<FileItem> formItems;
-            formItems = upload.parseRequest(request);
-
-            if (formItems != null && formItems.size() > 0) {
-                // 迭代表单数据
-                for (FileItem item : formItems) {
-                    // 处理不在表单中的字段
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        String filePath = uploadPath + File.separator + fileName;
-                        File storeFile = new File(filePath);
-                        // 在控制台输出文件的上传路径
-                        System.out.println(filePath);
-                        // 保存文件到硬盘
-                        item.write(storeFile);
-                        request.setAttribute("message",
-                                "文件上传成功!");
+            if(formItems!=null && formItems.size()>0){
+                for(FileItem item:formItems){
+                    if (item.isFormField()) {
+                        processFormField(item); //处理普通的表单域
+                        System.out.println(subject);
                     }
+                    else {
+                        uploadPath = "C:\\Users\\wzf\\Desktop\\upload"+File.separator +subject;
+                        File uploadDir = new File(uploadPath);
+                        if(!uploadDir.exists()){
+                            uploadDir.mkdir();
+                        }
+                        processUploadedFile(item,uploadPath,request); //处理上传文件
+                    }
+
                 }
             }
-        } catch (Exception ex) {
-            request.setAttribute("message",
-                    "错误信息: " + ex.getMessage());
         }
-        // 跳转到 message.jsp
-        getServletContext().getRequestDispatcher("/message.jsp").forward(
-                request, response);
+        catch (Exception ex){
+            request.setAttribute("message", "有错误 " + ex.getMessage());
+        }
+        //getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
+        response.sendRedirect("succeed.html");
+    }
+
+
+    //处理普通表单域
+    private void processFormField(FileItem item) {
+        try {
+            //如果普通表单域名称是bookname，取对应的数据
+            if ("subject".equals(item.getFieldName())) {
+                subject = item.getString("UTF-8").toString();
+
+            }
+            //有几个普通表单文本框通过if方式判断取值
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+    //处理上传文件
+    private void processUploadedFile(FileItem item, String uploadPath,HttpServletRequest request ) throws Exception {
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("user");
+        String name = u.getId()+" "+u.getName();
+        String fileName = new File(item.getName()).getName();
+        String prefix=fileName.substring(fileName.lastIndexOf(".")+1);
+        String filePath = uploadPath + File.separator + name+'.'+prefix;
+        System.out.println("filePath=" + filePath);
+        File storeFile = new File(filePath);
+//	写入文件
+        item.write(storeFile);
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    }
+
 }

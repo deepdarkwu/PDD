@@ -66,7 +66,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">DDF学生管理系统</a>
+            <a class="navbar-brand" href="main.jsp">DDF学生管理系统</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -122,10 +122,10 @@
                         <a href="tables.html"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
+                        <a href="update.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
+                        <a href="update_score.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
                     </li>
 
                 </ul>
@@ -152,16 +152,16 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form">
+                                <form role="form" method="post" action="word.ddf" enctype="multipart/form-data">
 
                                     <div class="form-group">
                                         <label>选择科目</label>
-                                        <select class="form-control">
-                                            <option>JSP和Servlet实验课</option>
-                                            <option>计算机网络</option>
-                                            <option>数据库</option>
-                                            <option>操作系统</option>
-                                            <option>数据结构</option>
+                                        <select name="subject" class="form-control" >
+                                            <option value="JSP和Servlet实验课">JSP和Servlet实验课</option>
+                                            <option value="计算机网络">计算机网络</option>
+                                            <option value="数据库">数据库</option>
+                                            <option value="操作系统">操作系统</option>
+                                            <option value="数据结构">数据结构</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

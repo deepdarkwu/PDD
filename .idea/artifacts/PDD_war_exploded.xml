@@ -7,6 +7,33 @@
         <element id="directory" name="classes">
           <element id="module-output" name="PDD" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-jdbc.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-io-2.5.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/commons-fileupload-1.3.2.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/el-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/jasper.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/jsp-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/catalina.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/ecj-4.3.1.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/jasper-el.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/mysql-jdbc.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/catalina-ha.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/servlet-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-dbcp.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-jdbc.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-util.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/catalina-ant.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-coyote.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/websocket-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-i18n-es.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-i18n-fr.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat-i18n-ja.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/annotations-api.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/catalina-tribes.jar" />
+          <element id="file-copy" path="$USER_HOME$/Downloads/apache-tomcat-7.0.52/lib/tomcat7-websocket.jar" />
+        </element>
       </element>
     </root>
   </artifact>

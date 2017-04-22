@@ -1,16 +1,12 @@
-<%@ page import="java.net.URLDecoder" %>
-<%@ page import="tool.JdbcConn" %>
-<%@ page import="bean.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.net.URLEncoder" %><%--
+<%@ page import="bean.User" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/4/20
-  Time: 14:21
+  Date: 2017/4/21
+  Time: 21:46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,14 +69,15 @@
             <a class="navbar-brand" href="main.jsp">DDF学生管理系统</a>
         </div>
         <!-- /.navbar-header -->
+
         <ul class="nav navbar-top-links navbar-right">
 
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><%=u.getName() %><i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i><%=u.getName()%><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="personal.jsp"><i class="fa fa-user fa-fw"></i><%=u.getName() %>的个人主页</a>
+                    <li><a href="personal.jsp"><i class="fa fa-user fa-fw"></i><%=u.getName()%>的个人主页</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
@@ -122,13 +119,13 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="update.jsp"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
+                        <a href="tables.html"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
                     </li>
                     <li>
-                        <a href="update_score.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
+                        <a href="update.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
+                        <a href="update_score.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
                     </li>
 
                 </ul>
@@ -141,112 +138,56 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><%=u.getName() %>的个人主页</h1>
+                <h1 class="page-header">提交成绩</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-user fa-fw"></i> 基本信息
-                        <div class="pull-right">
-
-                        </div>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset disabled>
-                                <div class="form-group" style="margin-bottom: 48px;">
-                                    <br>
-                                    <label for="disabledSelect">学号</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="学号" value="<%=u.getId() %>"disabled>
-                                    <br><br>
-                                    <label for="disabledSelect">姓名</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="姓名" value="<%=u.getName() %>" disabled>
-                                </div>
-                                </from>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-phone fa-fw"></i> 联系方式
-                        <div class="pull-right">
-
-                        </div>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <form role="form">
-                            <div class="form-group">
-                                <label for="disabledSelect">电话号码</label>
-                                <input class="form-control" value="<%=u.getPhone()%>">
-                                <label for="disabledSelect">QQ</label>
-                                <input class="form-control" value="<%=u.getQq()%>">
-                                <label for="disabledSelect">邮箱</label>
-                                <input class="form-control" value="<%=u.getMail()%>">
-                            </div>
-                            <input type="submit" class="btn btn-default"value="提交修改">
-
-                            </from>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
-        </div>
+        <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-th-list fa-fw"></i> 成绩列表
-                        <div class="pull-right">
-
-                        </div>
+                        请选择要提交的科目和成绩
                     </div>
-                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th>科目</th>
-                                    <th>成绩</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form" action="grade.ddf" method="post">
 
-                                    <td>数据结构</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
+                                    <div class="form-group">
+                                        <label>选择科目</label>
+                                        <select class="form-control" name="subject">
+                                            <option value="JSP和Servlet实验课">JSP和Servlet实验课</option>
+                                            <option value="计算机网络">计算机网络</option>
+                                            <option value="数据库">数据库</option>
+                                            <option value="操作系统">操作系统</option>
+                                            <option value="数据结构">数据结构</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>输入你的成绩</label>
+                                        <input class="form-control" name="score" placeholder="输入数字，注意不要输入全角的句号">
+                                    </div>
 
-                                    <td>JSP</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
+                                    <button type="submit" class="btn btn-default">提交</button>
+                                    <button type="reset" class="btn btn-default">重置</button>
+                                </form>
+                            </div>
 
-                                    <td>数值分析</td>
-                                    <td>90</td>
-                                </tr>
-                                </tbody>
-                            </table>
+
                         </div>
+                        <!-- /.row (nested) -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
+                <!-- /.panel -->
             </div>
+            <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
     </div>
+
+    <!-- /#page-wrapper -->
     <!-- /#page-wrapper -->
 
 </div>
