@@ -1,4 +1,7 @@
-<%@ page import="bean.User" %><%--
+<%@ page import="bean.User" %>
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="bean.Grade" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -45,7 +48,7 @@
         <%
             User u = (User)session.getAttribute("user");
             if(u==null){
-                u = new User("null","null","null","null","null","null");
+                u = new User("null","null","null","null","null","null",10);
                 out.print("alert(\"请登录\");");
                 out.print("top.location='login.jsp';");
             }
@@ -119,10 +122,10 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
+                        <a href="update.jsp"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
                     </li>
                     <li>
-                        <a href="update.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
+                        <a href="update_score.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
                     </li>
                     <li>
                         <a href="update_score.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
@@ -156,12 +159,16 @@
 
                                     <div class="form-group">
                                         <label>选择科目</label>
-                                        <select class="form-control" name="subject">
-                                            <option value="JSP和Servlet实验课">JSP和Servlet实验课</option>
-                                            <option value="计算机网络">计算机网络</option>
-                                            <option value="数据库">数据库</option>
-                                            <option value="操作系统">操作系统</option>
-                                            <option value="数据结构">数据结构</option>
+                                        <select name="subject" class="form-control" >
+                                            <%
+                                                JdbcConn jdbc = new JdbcConn();
+                                                ArrayList<Grade> grades = jdbc.gradeList();
+                                                for(Grade g :grades){
+                                            %>
+                                            <option value="<%=g.getId()%>"><%=g.getSubject()%></option>
+                                            <%
+                                                }
+                                            %>
                                         </select>
                                     </div>
                                     <div class="form-group">

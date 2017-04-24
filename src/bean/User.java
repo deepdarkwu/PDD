@@ -8,6 +8,16 @@ public class User {
 	private String phone;
 	private String mail;
 
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
+	private int position;
+
 	public String getName() {
 		return name;
 	}
@@ -57,13 +67,14 @@ public class User {
 	}
 
 
-	public User(String id,String name,String password,String phone,String qq,String mail){
+	public User(String id,String name,String password,String phone,String qq,String mail,int position){
 		this.id=id;
 		this.name=name;
 		this.password=password;
 		this.phone=phone;
 		this.qq=qq;
 		this.mail=mail;
+		this.position=position;
 	}
 
 }

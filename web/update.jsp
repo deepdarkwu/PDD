@@ -1,4 +1,7 @@
-<%@ page import="bean.User" %><%--
+<%@ page import="bean.User" %>
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.HomeWork" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -43,13 +46,13 @@
     <![endif]-->
     <script type="application/javascript">
         <%
-            User u = (User)session.getAttribute("user");
-            if(u==null){
-                u = new User("null","null","null","null","null","null");
-                out.print("alert(\"请登录\");");
-                out.print("top.location='login.jsp';");
-            }
-        %>
+             User u = (User)session.getAttribute("user");
+             if(u==null){
+                 u = new User("null","null","null","null","null","null",10);
+                 out.print("alert(\"请登录\");");
+                 out.print("top.location='login.jsp';");
+             }
+         %>
     </script>
 </head>
 
@@ -157,11 +160,15 @@
                                     <div class="form-group">
                                         <label>选择科目</label>
                                         <select name="subject" class="form-control" >
-                                            <option value="JSP和Servlet实验课">JSP和Servlet实验课</option>
-                                            <option value="计算机网络">计算机网络</option>
-                                            <option value="数据库">数据库</option>
-                                            <option value="操作系统">操作系统</option>
-                                            <option value="数据结构">数据结构</option>
+                                            <%
+                                                JdbcConn jdbc = new JdbcConn();
+                                                ArrayList<HomeWork> works = jdbc.homeworkList();
+                                                for(HomeWork w :works){
+                                            %>
+                                            <option value="<%=w.getId()%>"><%=w.getSubject()%></option>
+                                            <%
+                                                }
+                                            %>
                                         </select>
                                     </div>
                                     <div class="form-group">

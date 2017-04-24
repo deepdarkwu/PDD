@@ -3,7 +3,9 @@
 <%@ page import="bean.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.net.URLEncoder" %><%--
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="bean.PersonGrade" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/20
@@ -47,13 +49,13 @@
     <![endif]-->
     <script type="application/javascript">
         <%
-            User u = (User)session.getAttribute("user");
-            if(u==null){
-                u = new User("null","null","null","null","null","null");
-                out.print("alert(\"请登录\");");
-                out.print("top.location='login.jsp';");
-            }
-        %>
+             User u = (User)session.getAttribute("user");
+             if(u==null){
+                 u = new User("null","null","null","null","null","null",10);
+                 out.print("alert(\"请登录\");");
+                 out.print("top.location='login.jsp';");
+             }
+         %>
     </script>
 </head>
 
@@ -219,24 +221,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
+                                <%
+                                    System.out.println("person");
+                                    JdbcConn jdbc = new JdbcConn();
+                                    ArrayList<PersonGrade> pg = jdbc.getPensonGrade(u.getId());
+                                    int i=0;
+                                    for(PersonGrade p : pg){
+                                        if(!p.getScore().equals("0")) {
+                                            out.print(" <tr>\n" +
+                                                    "<td>" + (++i) + "</td>\n" +
+                                                    "<td>" + p.getSubname() + "</td>\n" +
+                                                    "<td>" + p.getScore() + "</td>\n" +
+                                                    "</tr>");
+                                        }
+                                    }
+                                %>
 
-                                    <td>数据结构</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-
-                                    <td>JSP</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-
-                                    <td>数值分析</td>
-                                    <td>90</td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>

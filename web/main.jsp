@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <%
             User u = (User)session.getAttribute("user");
             if(u==null){
-                u = new User("null","null","null","null","null","null");
+                u = new User("null","null","null","null","null","null",10);
                 out.print("alert(\"请登录\");");
                 out.print("top.location='login.jsp';");
             }
