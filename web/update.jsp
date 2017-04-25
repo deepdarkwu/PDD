@@ -95,19 +95,9 @@
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
-                    <!--<li class="sidebar-search">
-                        <div class="input-group custom-search-form">
-                            <input type="text" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                        </div>
-                        <!-- /input-group
-                    </li>-->
+
                     <li>
-                        <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
+                        <a href="main.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 个人信息总览<span class="fa arrow"></span></a>
@@ -122,13 +112,13 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
+                        <a href="update.jsp"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
                     </li>
                     <li>
-                        <a href="update.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
+                        <a href="update_score.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
                     </li>
                     <li>
-                        <a href="update_score.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
+                        <a href="address.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
                     </li>
 
                 </ul>

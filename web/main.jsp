@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <a href="update_score.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
+                            <a href="address.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
                         </li>
                        
                     </ul>

@@ -1,7 +1,8 @@
 <%@ page import="bean.User" %>
 <%@ page import="tool.JdbcConn" %>
 <%@ page import="bean.Grade" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.reflect.Array" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -29,20 +30,17 @@
     <!-- MetisMenu CSS -->
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="application/javascript">
         <%
@@ -131,7 +129,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">提交成绩</h1>
+                <h1 class="page-header">通讯录</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -140,40 +138,37 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        请选择要提交的科目和成绩
+                        保持联系
                     </div>
+                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="grade.ddf" method="post">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>手机号</th>
+                                <th>邮箱</th>
+                                <th>QQ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                ArrayList<User> users = jdbc.list();
+                                for(User user : users){
+                                    if(!user.getId().equals(u.getId())) {
+                                        out.print(" <tr class=\"gradeU\">\n" +
+                                                "   <td>" + user.getName() + "</td>\n" +
+                                                "   <td><a href=\"tel:" + user.getPhone() + "\">" + user.getPhone() + "</a></td>\n" +
+                                                "   <td><a href=\"mailto:" + user.getMail() + "\">" + user.getMail() + "</a></td>\n" +
+                                                "   <td onclick=\"a('" + user.getQq() + "')\"><a style=\"cursor: pointer;\">" + user.getQq() + "</a></td>\n" +
+                                                "   </tr>");
+                                    }
+                                }
+                            %>
+                            </tbody>
+                        </table>
 
-                                    <div class="form-group">
-                                        <label>选择科目</label>
-                                        <select name="subject" class="form-control" >
-                                            <%
-                                                JdbcConn jdbc = new JdbcConn();
-                                                ArrayList<Grade> grades = jdbc.gradeList();
-                                                for(Grade g :grades){
-                                            %>
-                                            <option value="<%=g.getId()%>"><%=g.getSubject()%></option>
-                                            <%
-                                                }
-                                            %>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>输入你的成绩</label>
-                                        <input class="form-control" name="score" placeholder="输入数字，注意不要输入全角的句号">
-                                    </div>
-
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
-
-
-                        </div>
-                        <!-- /.row (nested) -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -181,7 +176,9 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
+
+
+
     </div>
 
     <!-- /#page-wrapper -->
@@ -199,13 +196,47 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
-<!-- Morris Charts JavaScript -->
-<script src="vendor/raphael/raphael.min.js"></script>
-<script src="vendor/morrisjs/morris.min.js"></script>
-<!--<script src="../data/morris-data.js"></script>-->
+<!-- DataTables JavaScript -->
+<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+<script type="application/javascript">
+    function a (i){
+
+
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag == true){
+            top.location='tencent://message/?uin='+i;
+
+        }
+        else {
+            top.location='mqqwpa://im/chat?chat_type=wpa&uin='+i+'&version=1';
+        }
+        //history.back();
+    }
+</script>
 </body>
 
 </html>
