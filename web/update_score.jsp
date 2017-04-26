@@ -1,7 +1,8 @@
 <%@ page import="bean.User" %>
 <%@ page import="tool.JdbcConn" %>
 <%@ page import="bean.Grade" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.PersonGrade" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -152,11 +153,13 @@
                                         <select name="subject" class="form-control" >
                                             <%
                                                 JdbcConn jdbc = new JdbcConn();
-                                                ArrayList<Grade> grades = jdbc.gradeList();
-                                                for(Grade g :grades){
+                                                ArrayList<PersonGrade> pg = jdbc.getPensonGrade(u.getId());
+                                                for(PersonGrade g :pg){
+                                                    if(g.getScore().equals("0")){
                                             %>
-                                            <option value="<%=g.getId()%>"><%=g.getSubject()%></option>
+                                            <option value="<%=g.getSubid()%>"><%=g.getSubname()%></option>
                                             <%
+                                                    }
                                                 }
                                             %>
                                         </select>

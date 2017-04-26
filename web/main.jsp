@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 个人信息总览<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">个人成绩</a>
+                                    <a href="persongrade.jsp">个人成绩</a>
                                 </li>
                                 <li>
                                     <a href="morris.html">交作业情况</a>

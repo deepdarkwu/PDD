@@ -133,64 +133,12 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header"><%=u.getName() %>的个人主页</h1>
+                <h1 class="page-header"><%=u.getName() %>的成绩</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-user fa-fw"></i> 基本信息
-                        <div class="pull-right">
 
-                        </div>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <form role="form">
-                            <fieldset disabled>
-                                <div class="form-group" style="margin-bottom: 48px;">
-                                    <br>
-                                    <label for="disabledSelect">学号</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="学号" value="<%=u.getId() %>"disabled>
-                                    <br><br>
-                                    <label for="disabledSelect">姓名</label>
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="姓名" value="<%=u.getName() %>" disabled>
 
-                                </div>
-                                </from>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-phone fa-fw"></i> 联系方式
-                        <div class="pull-right">
-
-                        </div>
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <form role="form" method="post" action="changeinfo.ddf">
-                            <div class="form-group">
-                                <label for="disabledSelect">电话号码</label>
-                                <input class="form-control" name="phone" value="<%=u.getPhone()%>">
-                                <label for="disabledSelect">QQ</label>
-                                <input class="form-control"name="qq" value="<%=u.getQq()%>">
-                                <label for="disabledSelect">邮箱</label>
-                                <input class="form-control" name="mail" value="<%=u.getMail()%>">
-                            </div>
-                            <input type="button" class="btn btn-default"value="点我去修改密码" onclick="tiao()">
-
-                            </from>
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -259,12 +207,6 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
-
-<script type="application/javascript">
-    function tiao(){
-        top.location="change.jsp";
-    }
-</script>
 </body>
 
 </html>

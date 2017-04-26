@@ -141,6 +141,27 @@ public class JdbcConn {
 		}
 		return pg;
 	}
+
+	public boolean changeinfo(String id,String pass,String phone,String qq,String mail) throws SQLException {
+
+		String sql = "UPDATE `users` SET `password`="+pass+",`phone`="+phone+",`qq`="+qq+",`mail`=\""+mail+"\" WHERE id="+id;
+		System.out.println(sql);
+		int i=stmt.executeUpdate(sql);
+		System.out.println("成功向user表中更新" + i + "条记录");
+		return true;
+	}
+
+	void addtablemes(String table,String mes){
+
+		String sql = "alter table "+table+" add `"+mes+"` int(11)";
+		int i= 0;
+		try {
+			i = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("成功向user表中更新" + i + "条记录");
+	}
 //	    public static void free()  
 //	    {  
 //	        
