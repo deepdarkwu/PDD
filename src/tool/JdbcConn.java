@@ -2,10 +2,8 @@ package tool;
 import java.sql.*;
 import java.util.ArrayList;
 
-import bean.Grade;
-import bean.HomeWork;
-import bean.PersonGrade;
-import bean.User;
+import bean.*;
+
 public class JdbcConn {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	   static final String DB_URL = "jdbc:mysql://localhost/ddf?characterEncoding=utf-8";
@@ -150,6 +148,27 @@ public class JdbcConn {
 		System.out.println("成功向user表中更新" + i + "条记录");
 		return true;
 	}
+
+	public ArrayList<Message> messagelist(){
+		ArrayList<Message> mess =new ArrayList<Message>();
+		String sql = "SELECT * FROM message";
+		try{
+			ResultSet rs = stmt.executeQuery(sql);
+			//STEP 5: Extract data from result set
+			while(rs.next()){
+				Message m= new Message(rs.getInt("id"),
+						rs.getString("title"),
+						rs.getString("information"),
+						rs.getString("url"),
+						rs.getInt("level"));
+				mess.add(m);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return mess;
+	}
+
 
 	void addtablemes(String table,String mes){
 

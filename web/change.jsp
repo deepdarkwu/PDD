@@ -51,9 +51,9 @@
 
 <body>
 
-<div class="container">
+<div class="container" style="top:-400px">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-4 col-md-offset-4"style=" top:-90px">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">更改个人信息</h3>

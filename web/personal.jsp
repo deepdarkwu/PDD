@@ -175,17 +175,18 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <form role="form" method="post" action="changeinfo.ddf">
+                            <fieldset disabled>
                             <div class="form-group">
                                 <label for="disabledSelect">电话号码</label>
-                                <input class="form-control" name="phone" value="<%=u.getPhone()%>">
+                                <input class="form-control" name="phone" value="<%=u.getPhone()%>"　disabled>
                                 <label for="disabledSelect">QQ</label>
-                                <input class="form-control"name="qq" value="<%=u.getQq()%>">
+                                <input class="form-control"name="qq" value="<%=u.getQq()%>"　disabled>
                                 <label for="disabledSelect">邮箱</label>
-                                <input class="form-control" name="mail" value="<%=u.getMail()%>">
+                                <input class="form-control" name="mail" value="<%=u.getMail()%>"　disabled>
                             </div>
-                            <input type="button" class="btn btn-default"value="点我去修改密码" onclick="tiao()">
-
+                            </fieldset>
                             </from>
+                                <input type="button" class="btn btn-default"value="点我去修改个人信息" onclick="tiao()">
                     </div>
                     <!-- /.panel-body -->
                 </div>
