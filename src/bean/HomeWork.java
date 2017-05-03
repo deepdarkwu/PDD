@@ -1,5 +1,8 @@
 package bean;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
+
 /**
  * Created by wzf on 2017/4/23.
  */
@@ -7,10 +10,12 @@ public class HomeWork {
 
     private String id;
     private String subject;
+    private String  date;
 
-    public HomeWork(String id,String subject){
-        this.id=id;
-        this.subject=subject;
+    public HomeWork(String id, String subject, String date) {
+        this.id = id;
+        this.subject = subject;
+        this.date = date;
     }
 
     public String getId() {
@@ -33,4 +38,11 @@ public class HomeWork {
         return id+subject;
     }
 
+    public String  getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

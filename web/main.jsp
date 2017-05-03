@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <a href="persongrade.jsp">个人成绩</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">交作业情况</a>
+                                    <a href="worklist.jsp">交作业情况</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

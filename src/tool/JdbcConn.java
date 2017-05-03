@@ -1,6 +1,7 @@
 package tool;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.Date;
 
 import bean.*;
 
@@ -72,7 +73,7 @@ public class JdbcConn {
 			ResultSet rs = stmt.executeQuery(sql);
 			//STEP 5: Extract data from result set
 			while(rs.next()){
-				HomeWork h= new HomeWork(rs.getString("id"), rs.getString("subject") );
+				HomeWork h= new HomeWork(rs.getString("id"), rs.getString("subject"),rs.getString("date") );
 				work.add(h);
 			}
 		}catch(Exception e){
@@ -168,7 +169,58 @@ public class JdbcConn {
 		}
 		return mess;
 	}
+	public ArrayList<HomeWork> getPensonWork(String id){
 
+		ArrayList<HomeWork> work = homeworkList();
+		int i=0;
+		ArrayList<HomeWork> no = new ArrayList<HomeWork>();
+		String sql = "SELECT  ";
+		while (i<work.size()){
+			sql=sql+"`"+work.get(i).getId()+"`";
+			if(i!=work.size()-1){
+				sql=sql+",";
+			}
+			i++;
+		}
+		sql=sql+" FROM `uphomework` WHERE id="+id;
+		//System.out.println(sql);
+		try{
+			ResultSet rs = stmt.executeQuery(sql);
+			//STEP 5: Extract data from result set
+			i=0;
+			while(rs.next()){
+				while (i<work.size()){
+					if(rs.getString(work.get(i).getId()).equals("0")) {
+						//System.out.println(rs.getString(grade.get(i).getId()));
+						no.add(work.get(i));
+					}
+					i++;
+				}
+			}
+			//System.out.println(pg.size());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return no;
+	}
+
+
+	public String worksucnum(String id){
+		int a = list().size();
+		String sql = "SELECT id FROM uphomework WHERE `"+id+"`=1";
+		System.out.println(sql);
+		int i=0;
+		try{
+
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				i++;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return i+"/"+a;
+	}
 
 	void addtablemes(String table,String mes){
 

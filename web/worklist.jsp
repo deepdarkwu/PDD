@@ -1,16 +1,19 @@
-<%@ page import="bean.User" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page import="tool.JdbcConn" %>
-<%@ page import="bean.Grade" %>
+<%@ page import="bean.User" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.PersonGrade" %><%--
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="bean.PersonGrade" %>
+<%@ page import="bean.HomeWork" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/4/21
-  Time: 21:46
+  Date: 2017/4/20
+  Time: 14:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,13 +50,13 @@
     <![endif]-->
     <script type="application/javascript">
         <%
-            User u = (User)session.getAttribute("user");
-            if(u==null){
-                u = new User("null","null","null","null","null","null",10);
-                out.print("alert(\"请登录\");");
-                out.print("top.location='login.jsp';");
-            }
-        %>
+             User u = (User)session.getAttribute("user");
+             if(u==null){
+                 u = new User("null","null","null","null","null","null",10);
+                 out.print("alert(\"请登录\");");
+                 out.print("top.location='login.jsp';");
+             }
+         %>
     </script>
 </head>
 
@@ -73,15 +76,14 @@
             <a class="navbar-brand" href="main.jsp">DDF学生管理系统</a>
         </div>
         <!-- /.navbar-header -->
-
         <ul class="nav navbar-top-links navbar-right">
 
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><%=u.getName()%><i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i><%=u.getName() %><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="personal.jsp"><i class="fa fa-user fa-fw"></i><%=u.getName()%>的个人主页</a>
+                    <li><a href="personal.jsp"><i class="fa fa-user fa-fw"></i><%=u.getName() %>的个人主页</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
@@ -132,7 +134,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">提交成绩</h1>
+                <h1 class="page-header">作业提交</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -141,42 +143,88 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        请选择要提交的科目和成绩
+                        未交
                     </div>
+                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="grade.ddf" method="post">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>科目</th>
+                                <th>截止日期</th>
+                                <th>当前完成人数</th>
+                                <th>提交</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                                    <div class="form-group">
-                                        <label>选择科目</label>
-                                        <select name="subject" class="form-control" >
-                                            <%
-                                                JdbcConn jdbc = new JdbcConn();
-                                                ArrayList<PersonGrade> pg = jdbc.getPensonGrade(u.getId());
-                                                for(PersonGrade g :pg){
-                                                    if(g.getScore().equals("0")){
-                                            %>
-                                            <option value="<%=g.getSubid()%>"><%=g.getSubname()%></option>
-                                            <%
-                                                    }
-                                                }
-                                            %>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>输入你的成绩</label>
-                                        <input class="form-control" name="score" placeholder="输入数字，注意不要输入全角的句号">
-                                    </div>
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                ArrayList<HomeWork> works = jdbc.getPensonWork(u.getId());
+                                for(HomeWork w : works){
+                            %>
+                            <tr class="gradeU">
+                                <td><%=w.getSubject()%></td>
+                                <td><%=w.getDate()%></td>
+                                <td><%=jdbc.worksucnum(w.getId())%></td>
+                                <td><a href="upload.jsp">前往</td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            </tbody>
+                        </table>
 
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        已交
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>科目</th>
+                                <th>截止日期</th>
+                                <th>当前完成人数</th>
 
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                        </div>
-                        <!-- /.row (nested) -->
+                            <%
+                                ArrayList<HomeWork> suc = jdbc.homeworkList();
+                                for(HomeWork s : suc){
+
+                                    int a=0;
+                                    for(HomeWork w : works) {
+                                        if (s.getId().equals(w.getId()))
+                                            a = 1;
+                                    }
+                                    if(a==0){
+                            %>
+                            <tr class="gradeU">
+                                <td><%=s.getSubject()%></td>
+                                <td><%=s.getDate()%></td>
+                                <td><%=jdbc.worksucnum(s.getId())%></td>
+
+                            </tr>
+                            <%
+                                    }
+                                }
+                            %>
+                            </tbody>
+                        </table>
+
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -186,8 +234,6 @@
         </div>
         <!-- /.row -->
     </div>
-
-    <!-- /#page-wrapper -->
     <!-- /#page-wrapper -->
 
 </div>
