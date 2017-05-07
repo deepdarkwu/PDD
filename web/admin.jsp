@@ -81,10 +81,7 @@
                     <i class="fa fa-user fa-fw"></i><%=a.getName()%><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <!--<li><a href="http://space.bilibili.com/2892526/#!/"><i class="fa fa-user fa-fw"></i>个人主页</a>
-                    </li>
-                    <li class="divider"></li>-->
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+                    <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -105,7 +102,7 @@
                                 <a href="GradeAll.jsp">成绩总览</a>
                             </li>
                             <li>
-                                <a href="HomeWorkAll.jsp">交作业情况总览</a>
+                                <a href="adminwork.jsp">交作业情况总览</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -117,7 +114,7 @@
                         <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
-                        <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
+                        <a href="newhomework.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
                     </li>
                 </ul>
             </div>

@@ -1,12 +1,14 @@
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="bean.HomeWork" %>
 <%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/5/7
-  Time: 9:56
+  Time: 18:22
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +32,9 @@
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -51,7 +56,7 @@
             }
     %>
 </script>
-<body style="background: #D8EBF5;">
+<body  style="background: #D8EBF5;">
 
 <div id="wrapper">
 
@@ -64,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
+            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -84,6 +89,7 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
+
         <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
             <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
                 <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
@@ -106,7 +112,7 @@
                         <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
-                        <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
+                        <a href="SandMessage.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
                         <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
@@ -121,7 +127,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">发通知</h1>
+                <h1 class="page-header">作业总览</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -130,43 +136,38 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        发布的通知将会在首页显示
+                        点击“详情”查看未提交的学生姓名并打包下载作业
                     </div>
+                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="sendmes.ddf" method="post" >
-                                    <div class="form-group">
-                                        <label>标题</label>
-                                        <input class="form-control" name="title">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>正文</label>
-                                        <textarea class="form-control" rows="3" name="mes"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>跳转地址（url）</label>
-                                        <input class="form-control" name="url">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>设置权限</label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline1" value="1">班委
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline2" value="2">寝室长(班委可见)
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline3" value="3" checked>所有人可见
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>科目</th>
+                                <th>截止日期</th>
+                                <th>提交人数</th>
+                                <th>前往</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                        </div>
-                        <!-- /.row (nested) -->
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                ArrayList<HomeWork> works = jdbc.homeworkList();
+                                for(HomeWork w : works){
+                            %>
+                            <tr class="gradeU">
+                                <td><%=w.getSubject()%></td>
+                                <td><%=w.getDate()%></td>
+                                <td><%=jdbc.worksucnum(w.getId())%></td>
+                                <td><a href="worktable.jsp?id=<%=w.getId()%>">详情</a></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            </tbody>
+                        </table>
+
                     </div>
                     <!-- /.panel-body -->
                 </div>

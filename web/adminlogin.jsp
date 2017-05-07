@@ -1,4 +1,4 @@
-<%--
+<%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -39,7 +39,6 @@
     <![endif]-->
 
 </head>
-
 <body>
 
 <div class="container">

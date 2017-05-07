@@ -2,11 +2,10 @@
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/5/7
-  Time: 9:56
+  Time: 19:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +29,9 @@
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -51,7 +53,7 @@
             }
     %>
 </script>
-<body style="background: #D8EBF5;">
+<body  style="background: #D8EBF5;">
 
 <div id="wrapper">
 
@@ -64,7 +66,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
+            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -84,6 +86,7 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
+
         <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
             <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
                 <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
@@ -106,7 +109,7 @@
                         <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
-                        <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
+                        <a href="SandMessage.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
                         <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
@@ -121,7 +124,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">发通知</h1>
+                <h1 class="page-header">发布作业</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -130,36 +133,21 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        发布的通知将会在首页显示
+                        发布的作业将会在首页显示
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" action="sendmes.ddf" method="post" >
+                                <form role="form" action="uphomework.ddf" method="post">
                                     <div class="form-group">
-                                        <label>标题</label>
-                                        <input class="form-control" name="title">
+                                        <label>科目</label>
+                                        <input class="form-control" name="subject">
                                     </div>
                                     <div class="form-group">
-                                        <label>正文</label>
-                                        <textarea class="form-control" rows="3" name="mes"></textarea>
+                                        <label>截止日期</label>
+                                        <input class="form-control" placeholder="2017-5-12" name="date">
                                     </div>
-                                    <div class="form-group">
-                                        <label>跳转地址（url）</label>
-                                        <input class="form-control" name="url">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>设置权限</label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline1" value="1">班委
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline2" value="2">寝室长(班委可见)
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline3" value="3" checked>所有人可见
-                                        </label>
-                                    </div>
+
                                     <button type="submit" class="btn btn-default">提交</button>
                                     <button type="reset" class="btn btn-default">重置</button>
                                 </form>
@@ -196,3 +184,4 @@
 </body>
 
 </html>
+

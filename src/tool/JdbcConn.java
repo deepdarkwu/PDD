@@ -259,9 +259,66 @@ public class JdbcConn {
 		return true;
 	}
 
+	public ArrayList<String> nothomework(String id){
+		String sql = "SELECT id FROM uphomework WHERE `"+id+"`=0";
+		//System.out.println(sql);
+		ArrayList<String> users = new ArrayList<String>();
+		try{
+
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()){
+				users.add(rs.getString("id"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return users;
+	}
+	public User getuserbyid(String id) throws SQLException {
+		String sql = "SELECT * FROM users WHERE `id`="+id;
+		User u=null;
+		//System.out.println(sql);
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			u = new User(rs.getString("id"),
+					rs.getString("name"),
+					rs.getString("password"),
+					rs.getString("phone"),
+					rs.getString("qq"),
+					rs.getString("mail"),
+					rs.getInt("position"));
+
+		}
+		return u;
+	}
+
+	public boolean addhomework(String subject , String date) throws SQLException {
+		String sql="insert into homework(subject,date) values('"+subject+"','"+date+"')";
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getidbysub(subject);
+		return true;
+
+	}
+
+	void getidbysub(String subject) throws SQLException {
+		String sql = "SELECT id FROM homework WHERE `subject`=\""+subject+"\"";
+		String s=null;
+		System.out.println(sql);
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) s=rs.getString("id");
+		System.out.println(s);
+		addtablemes("uphomework",s);
+	}
 	void addtablemes(String table,String mes){
 
-		String sql = "alter table "+table+" add `"+mes+"` int(11)";
+		String sql = "alter table "+table+" add `"+mes+"` int(11) default 0";
+		System.out.println(sql);
 		int i= 0;
 		try {
 			i = stmt.executeUpdate(sql);
