@@ -66,6 +66,23 @@ public class JdbcConn {
 		   }
 		   return users;
 	   }
+	public ArrayList<Admin> adminlist(){
+		ArrayList<Admin> users =new ArrayList<Admin>();
+		String sql = "SELECT * FROM admin";
+		try{
+			ResultSet rs = stmt.executeQuery(sql);
+			//STEP 5: Extract data from result set
+			while(rs.next()){
+				Admin u= new Admin(rs.getString("id"),
+						rs.getString("name"),
+						rs.getString("password"));
+				users.add(u);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return users;
+	}
 	public ArrayList<HomeWork> homeworkList(){
 		ArrayList<HomeWork> work =new ArrayList<HomeWork>();
 		String sql = "SELECT * FROM homework";
@@ -204,6 +221,14 @@ public class JdbcConn {
 		return no;
 	}
 
+	public boolean setwork(String id ,String work) throws SQLException {
+		String sql = "UPDATE `uphomework` SET `"+work+"`=1 WHERE id="+id;
+		System.out.println(sql);
+		int i=stmt.executeUpdate(sql);
+		System.out.println("成功向user表中更新" + i + "条记录");
+		return true;
+
+	}
 
 	public String worksucnum(String id){
 		int a = list().size();
@@ -220,6 +245,18 @@ public class JdbcConn {
 			e.printStackTrace();
 		}
 		return i+"/"+a;
+	}
+
+	public boolean addmes(String title,String mes,String url,int level){
+		String sql="insert into message(title,information,url,level) values('"+title+"','"+mes+"','"+url+"','"+level+"')";
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 	void addtablemes(String table,String mes){

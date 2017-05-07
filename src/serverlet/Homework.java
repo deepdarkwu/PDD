@@ -18,6 +18,7 @@ import bean.User;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import tool.JdbcConn;
 
 public class Homework extends HttpServlet{
     private static final long serialVersionUID = 1L;
@@ -68,6 +69,10 @@ public class Homework extends HttpServlet{
                     if (item.isFormField()) {
                         processFormField(item); //处理普通的表单域
                         System.out.println(subject);
+                        HttpSession session = request.getSession();
+                        User u = (User)session.getAttribute("user");
+                        JdbcConn jdbc = new JdbcConn();
+                        jdbc.setwork(u.getId(),subject);
                     }
                     else {
                         uploadPath = "C:\\Users\\wzf\\Desktop\\upload"+File.separator +subject;

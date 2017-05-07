@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>登录</title>
+    <title>管理员登录</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -47,35 +47,35 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">登录
+                    <h3 class="panel-title">管理员登录
                         <%
-                        String flag = request.getParameter("flag");
-                        if(flag!=null){
-                            if(flag.equals("1")){
-                                out.print("<span style='color:red;font-size:15px'>密码错误</span>");
-                            }else if(flag.equals("0")){
-                                out.print("<span style='color:red;font-size:15px'>用户不存在</spanp>");
-                            }else{}
-                        }
-                    %></h3>
+                            String flag = request.getParameter("flag");
+                            if(flag!=null){
+                                if(flag.equals("1")){
+                                    out.print("<span style='color:red;font-size:15px'>密码错误</span>");
+                                }else if(flag.equals("0")){
+                                    out.print("<span style='color:red;font-size:15px'>用户不存在</spanp>");
+                                }else{}
+                            }
+                        %></h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="login.ddf" method="post">
+                    <form role="form" action="admin.ddf" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="学号" name="id" autofocus>
+                                <input class="form-control" placeholder="账号" name="id" autofocus>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="密码" name="password" type="password" value="">
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <a href="adminlogin.jsp">管理员登录</a>
+                                    <a href="login.jsp">普通用户登录</a>
                                 </label>
 
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <input type="submit" class="btn btn-lg btn-success btn-block" value="登录"></input>
+                            <input type="submit" class="btn btn-lg btn-info btn-block" value="登录"></input>
                         </fieldset>
                     </form>
                 </div>

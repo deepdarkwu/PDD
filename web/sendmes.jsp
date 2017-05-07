@@ -1,14 +1,12 @@
-<%@ page import="bean.User" %>
-<%@ page import="tool.JdbcConn" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.HomeWork" %><%--
+<%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/4/21
-  Time: 21:46
+  Date: 2017/5/7
+  Time: 9:56
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,9 +30,6 @@
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -44,24 +39,24 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="application/javascript">
-        <%
-             User u = (User)session.getAttribute("user");
-             if(u==null){
-                 u = new User("null","null","null","null","null","null",10);
-                 out.print("alert(\"请登录\");");
-                 out.print("top.location='login.jsp';");
-             }
-         %>
-    </script>
-</head>
 
+</head>
+<script type="application/javascript">
+    <%
+        Admin a = (Admin)session.getAttribute("admin");
+        if(a==null){
+                a = new Admin("null","null","null");
+                out.print("alert(\"请登录\");");
+                out.print("top.location='adminlogin.jsp';");
+            }
+    %>
+</script>
 <body>
 
 <div id="wrapper">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; background: #395070;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -69,21 +64,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="main.jsp">DDF学生管理系统</a>
+            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
 
-        <ul class="nav navbar-top-links navbar-right">
+        <ul class="nav navbar-top-links navbar-right" >
 
+            <!-- /.dropdown -->
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><%=u.getName()%><i class="fa fa-caret-down"></i>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #94BCF7">
+                    <i class="fa fa-user fa-fw"></i><%=a.getName()%><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="personal.jsp"><i class="fa fa-user fa-fw"></i><%=u.getName()%>的个人主页</a>
+                    <!--<li><a href="http://space.bilibili.com/2892526/#!/"><i class="fa fa-user fa-fw"></i>个人主页</a>
                     </li>
-                    <li class="divider"></li>
-                    <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+                    <li class="divider"></li>-->
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -91,36 +87,33 @@
             <!-- /.dropdown -->
         </ul>
         <!-- /.navbar-top-links -->
-
-        <div class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-collapse">
-                <ul class="nav" id="side-menu">
-
+        <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
+            <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
+                <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
                     <li>
-                        <a href="main.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
+                        <a href="admin.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 个人信息总览<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 信息总览<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="persongrade.jsp">个人成绩</a>
+                                <a href="GradeAll.jsp">成绩总览</a>
                             </li>
                             <li>
-                                <a href="worklist.jsp">交作业情况</a>
+                                <a href="HomeWorkAll.jsp">交作业情况总览</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="update.jsp"><i class="fa fa-file-text fa-fw"></i> 提交作业</a>
+                        <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
-                        <a href="update_score.jsp"><i class="fa fa-edit fa-fw"></i> 提交成绩</a>
+                        <a href="sandmessage.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
-                        <a href="address.jsp"><i class="fa fa-phone-square fa-fw"></i> 通讯录</a>
+                        <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
                     </li>
-
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -131,7 +124,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">提交作业</h1>
+                <h1 class="page-header">发通知</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -140,38 +133,40 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        请选择要提交的科目和文件
+                        发布的通知将会在首页显示
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="post" action="word.ddf" enctype="multipart/form-data">
-
+                                <form role="form" action="sendmes.ddf" method="post" >
                                     <div class="form-group">
-                                        <label>选择科目</label>
-                                        <select name="subject" class="form-control" >
-                                            <%
-                                                JdbcConn jdbc = new JdbcConn();
-                                                ArrayList<HomeWork> works = jdbc.homeworkList();
-                                                for(HomeWork w :works){
-
-                                            %>
-                                            <option value="<%=w.getId()%>"><%=w.getSubject()%></option>
-                                            <%
-                                                }
-                                            %>
-                                        </select>
+                                        <label>标题</label>
+                                        <input class="form-control" name="title">
                                     </div>
                                     <div class="form-group">
-                                        <label>上传文件</label>
-                                        <input type="file" name="homework">
+                                        <label>正文</label>
+                                        <textarea class="form-control" rows="3" name="mes"></textarea>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label>跳转地址（url）</label>
+                                        <input class="form-control" name="url">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>设置权限</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="level" id="optionsRadiosInline1" value="1">班委
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="level" id="optionsRadiosInline2" value="2">寝室长(班委可见)
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="level" id="optionsRadiosInline3" value="3" checked>所有人可见
+                                        </label>
+                                    </div>
                                     <button type="submit" class="btn btn-default">提交</button>
                                     <button type="reset" class="btn btn-default">重置</button>
                                 </form>
                             </div>
-
 
                         </div>
                         <!-- /.row (nested) -->
@@ -184,7 +179,6 @@
         </div>
         <!-- /.row -->
     </div>
-    <!-- /#page-wrapper -->
     <!-- /#page-wrapper -->
 
 </div>
@@ -199,13 +193,9 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
-<!-- Morris Charts JavaScript -->
-<script src="vendor/raphael/raphael.min.js"></script>
-<script src="vendor/morrisjs/morris.min.js"></script>
-<!--<script src="../data/morris-data.js"></script>-->
-
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
+
 </body>
 
 </html>

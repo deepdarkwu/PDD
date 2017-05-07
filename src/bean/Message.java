@@ -15,9 +15,6 @@ public class Message {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -53,6 +50,12 @@ public class Message {
 
     public Message(int id, String title, String info, String url, int level) {
         this.id = id;
+        this.title = title;
+        this.info = info;
+        this.url = url;
+        this.level = level;
+    }
+    public Message(String title, String info, String url, int level) {
         this.title = title;
         this.info = info;
         this.url = url;

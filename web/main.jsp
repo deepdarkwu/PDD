@@ -1,8 +1,8 @@
-﻿<%@ page language="java" import="java.util.*,bean.User" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLDecoder" %>
 <%@ page import="tool.JdbcConn" %>
 <%@ page import="java.lang.reflect.Member" %>
-<%@ page import="bean.Message" %>
+<%@ page import="bean.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -145,7 +145,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">99+</div>
+                                    <div class="huge">
+                                        <%
+                                            JdbcConn jdbc = new JdbcConn();
+                                            int mesi=0;
+                                            for(Message m : jdbc.messagelist()){
+                                                mesi++;
+                                            }
+                                            out.print(mesi);
+                                        %>
+                                    </div>
                                     <div>通知</div>
                                 </div>
                             </div>
@@ -168,12 +177,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <i class="fa fa-file-text fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">2</div>
+                                    <div class="huge">
+                                        <%
+                                        int homei=0;
+                                        ArrayList<HomeWork> works = jdbc.getPensonWork(u.getId());
+                                        for(HomeWork w : works){
+                                            homei++;
+                                        }
+                                        out.print(homei);
+                                    %></div>
                                     <div>提交作业</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="update.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -190,12 +207,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <i class="fa fa-edit fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">1</div>
+                                    <div class="huge">
+                                        <%
+                                            int scorei=0;
+                                            ArrayList<PersonGrade> pg = jdbc.getPensonGrade(u.getId());
+                                            for(PersonGrade g :pg){
+                                                if(g.getScore().equals("0")){
+                                                        scorei++;
+                                                    }
+                                            }
+                                            out.print(scorei);
+                                        %>
+                                    </div>
                                     <div>提交成绩</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="update_score.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -212,12 +240,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <i class="fa fa-phone-square fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">1</div>
+                                    <div class="huge">
+                                        <%
+                                            int addi=0;
+                                            for(User uu : jdbc.list()){
+                                                addi++;
+                                            }
+                                            out.print(addi);
+                                        %>
+                                    </div>
                                     <div>通讯录</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="address.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -275,7 +311,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     String info = "info";
                                     String success = "success";
                                     int i=0;
-                                    JdbcConn jdbc = new JdbcConn();
+
                                     ArrayList<Message> mess = jdbc.messagelist();
                                     for(Message m : mess){
                                         if(u.getPosition()<=m.getLevel()){
