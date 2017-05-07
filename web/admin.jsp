@@ -114,7 +114,7 @@
                         <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
-                        <a href="sandmessage.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
+                        <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
                         <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
