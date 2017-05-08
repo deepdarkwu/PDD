@@ -2,7 +2,8 @@
 <%@ page import="tool.JdbcConn" %>
 <%@ page import="bean.Grade" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.lang.reflect.Array" %><%--
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -42,19 +43,17 @@
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <![endif]-->
-    <script type="application/javascript">
-        <%
-            User u = (User)session.getAttribute("user");
-            if(u==null){
-                u = new User("null","null","null","null","null","null",10);
-                out.print("alert(\"请登录\");");
-                out.print("top.location='login.jsp';");
-            }
-        %>
-    </script>
 </head>
-
-<body>
+<script type="application/javascript">
+    <%
+        User u = (User)session.getAttribute("user");
+        if(u==null){
+            u = new User("null","null","null","null","null","null",10);
+            out.print("alert(\"请登录\");");
+            out.print("top.location='login.jsp';");
+        }
+    %>
+</script>
 
 <div id="wrapper">
 

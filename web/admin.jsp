@@ -69,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
+            <a class="navbar-brand" href="admin.jsp" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -99,7 +99,7 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 信息总览<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="GradeAll.jsp">成绩总览</a>
+                                <a href="gradeall.jsp">成绩总览</a>
                             </li>
                             <li>
                                 <a href="adminwork.jsp">交作业情况总览</a>
@@ -108,7 +108,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
+                        <a href="adminaddress.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
                         <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>

@@ -94,22 +94,22 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> 信息总览<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="GradeAll.jsp">成绩总览</a>
+                                <a href="gradeall.jsp">成绩总览</a>
                             </li>
                             <li>
-                                <a href="HomeWorkAll.jsp">交作业情况总览</a>
+                                <a href="adminwork.jsp">交作业情况总览</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="address.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
+                        <a href="adminaddress.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
                     </li>
                     <li>
                         <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
                     </li>
                     <li>
-                        <a href="NewHomeWork.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
+                        <a href="newhomework.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
                     </li>
                 </ul>
             </div>

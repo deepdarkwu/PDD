@@ -1,8 +1,13 @@
+<%@ page import="bean.User" %>
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="bean.Grade" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.reflect.Array" %>
 <%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/5/7
-  Time: 19:17
+  Date: 2017/4/21
+  Time: 21:46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -26,20 +31,17 @@
     <!-- MetisMenu CSS -->
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -66,18 +68,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统</a>
+            <a class="navbar-brand" href="main.jsp"style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
+        <ul class="nav navbar-top-links navbar-right">
 
-        <ul class="nav navbar-top-links navbar-right" >
-
-            <!-- /.dropdown -->
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #94BCF7">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i><%=a.getName()%><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
+                    <li class="divider"></li>
                     <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
                     </li>
                 </ul>
@@ -85,10 +86,11 @@
             </li>
             <!-- /.dropdown -->
         </ul>
+
         <!-- /.navbar-top-links -->
 
-        <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
-            <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
                     <li>
                         <a href="admin.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
@@ -124,7 +126,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">发布作业</h1>
+                <h1 class="page-header">通讯录</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -133,28 +135,36 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        发布的作业将会在首页显示
+                        保持联系
                     </div>
+                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="uphomework.ddf" method="post">
-                                    <div class="form-group">
-                                        <label>科目</label>
-                                        <input class="form-control" name="subject">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>截止日期</label>
-                                        <input class="form-control" placeholder="2017-5-12" name="date">
-                                    </div>
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>手机号</th>
+                                <th>邮箱</th>
+                                <th>QQ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                ArrayList<User> users = jdbc.list();
+                                for(User user : users){
+                                        out.print(" <tr class=\"gradeU\">\n" +
+                                                "   <td>" + user.getName() + "</td>\n" +
+                                                "   <td><a href=\"tel:" + user.getPhone() + "\">" + user.getPhone() + "</a></td>\n" +
+                                                "   <td><a href=\"mailto:" + user.getMail() + "\">" + user.getMail() + "</a></td>\n" +
+                                                "   <td onclick=\"a('" + user.getQq() + "')\"><a style=\"cursor: pointer;\">" + user.getQq() + "</a></td>\n" +
+                                                "   </tr>");
+                                }
 
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
+                            %>
+                            </tbody>
+                        </table>
 
-                        </div>
-                        <!-- /.row (nested) -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -162,8 +172,12 @@
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
+
+
+
     </div>
+
+    <!-- /#page-wrapper -->
     <!-- /#page-wrapper -->
 
 </div>
@@ -178,10 +192,47 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
+<!-- DataTables JavaScript -->
+<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
 
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+<script type="application/javascript">
+    function a (i){
+
+
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag == true){
+            top.location='tencent://message/?uin='+i;
+
+        }
+        else {
+            top.location='mqqwpa://im/chat?chat_type=wpa&uin='+i+'&version=1';
+        }
+        //history.back();
+    }
+</script>
 </body>
 
 </html>
-

@@ -1,12 +1,20 @@
-<%@ page import="bean.Admin" %><%--
+<%@ page import="java.net.URLDecoder" %>
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="bean.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.lang.reflect.Array" %>
+<%@ page import="bean.PersonGrade" %>
+<%@ page import="bean.Admin" %>
+<%@ page import="bean.Grade" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/5/7
-  Time: 19:17
+  Date: 2017/4/20
+  Time: 14:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +49,6 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <script type="application/javascript">
     <%
@@ -66,10 +73,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统</a>
+            <a class="navbar-brand" href="admin.jsp" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
-
         <ul class="nav navbar-top-links navbar-right" >
 
             <!-- /.dropdown -->
@@ -87,8 +93,8 @@
         </ul>
         <!-- /.navbar-top-links -->
 
-        <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
-            <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
                     <li>
                         <a href="admin.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
@@ -124,43 +130,75 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">发布作业</h1>
+                <h1 class="page-header">总体成绩</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        发布的作业将会在首页显示
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="uphomework.ddf" method="post">
-                                    <div class="form-group">
-                                        <label>科目</label>
-                                        <input class="form-control" name="subject">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>截止日期</label>
-                                        <input class="form-control" placeholder="2017-5-12" name="date">
-                                    </div>
-
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
+                        <i class="fa fa-th-list fa-fw"></i> 成绩列表
+                        <div class="pull-right">
 
                         </div>
-                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                <%
+                                    JdbcConn jdbc = new JdbcConn();
+                                    ArrayList<Grade> grades = jdbc.gradeList();
+                                    for(Grade g : grades){
+                                %>
+
+                                    <th><%=g.getSubject()%></th>
+                                    <%
+                                        }
+                                    %>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    ArrayList<User> users = jdbc.list();
+                                    for(User u : users){
+                                %>
+                                <tr>
+                                    <td><%=u.getName()%></td>
+                                    <%
+                                        ArrayList<PersonGrade> pg = jdbc.getPensonGrade(u.getId());
+                                        for(PersonGrade p : pg){
+                                    %>
+                                    <td><%
+                                        if(p.getScore().equals("0")){
+                                            out.print("未提交");
+                                        }else if (p.getScore().equals("-1")){
+                                            out.print("0");
+                                        } else{
+                                            out.print(p.getScore());
+                                        }
+                                    %></td>
+                                    <%
+                                        }
+                                    %>
+                                </tr>
+                                   <%
+                                       }
+                                   %>
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <!-- /.panel-body -->
                 </div>
-                <!-- /.panel -->
             </div>
-            <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
     </div>
@@ -178,10 +216,13 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
+<!-- Morris Charts JavaScript -->
+<script src="vendor/raphael/raphael.min.js"></script>
+<script src="vendor/morrisjs/morris.min.js"></script>
+<!--<script src="../data/morris-data.js"></script>-->
+
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
-
 </body>
 
 </html>
-
