@@ -64,7 +64,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
+            <a class="navbar-brand" href="admin.jsp" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
 
