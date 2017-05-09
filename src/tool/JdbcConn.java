@@ -27,8 +27,8 @@ public class JdbcConn {
 		   }
 	   }
 	   
-	   public boolean add(String id,String name,String password){
-		   String sql="insert into users(id,name,password) values('"+id+"','"+name+"','"+password+"')";
+	   public boolean add(String id,String name,String password,String phone,String qq,String mail,int position){
+		   String sql="insert into users(id,name,password,phone,qq,mail,position) values('"+id+"','"+name+"','"+password+"','"+phone+"','"+qq+"','"+mail+"','"+position+"')";
 		   try {
 			int i=stmt.executeUpdate(sql);
 			System.out.println(i);
@@ -38,7 +38,15 @@ public class JdbcConn {
 		}
 		   return true;
 	   }
-	   public boolean delete(){
+	   public boolean delete(String id){
+		   String sql="DELETE FROM `users` WHERE id="+id;
+		   try {
+			   int i=stmt.executeUpdate(sql);
+			   System.out.println(sql);
+		   } catch (SQLException e) {
+			   // TODO Auto-generated catch block
+			   e.printStackTrace();
+		   }
 		   return true;
 	   }
 	   public String find(){

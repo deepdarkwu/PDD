@@ -1,12 +1,16 @@
+<%@ page import="bean.User" %>
+<%@ page import="tool.JdbcConn" %>
+<%@ page import="bean.Grade" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.reflect.Array" %>
 <%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
-  Date: 2017/5/7
-  Time: 9:56
+  Date: 2017/4/21
+  Time: 21:46
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,17 +31,17 @@
     <!-- MetisMenu CSS -->
     <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
@@ -51,7 +55,7 @@
             }
     %>
 </script>
-<body style="background: #D8EBF5;">
+<body  style="background: #D8EBF5;">
 
 <div id="wrapper">
 
@@ -67,15 +71,14 @@
             <a class="navbar-brand" href="admin.jsp" style="color: #DBE8FC;">DDF学生管理系统（管理端）</a>
         </div>
         <!-- /.navbar-header -->
+        <ul class="nav navbar-top-links navbar-right">
 
-        <ul class="nav navbar-top-links navbar-right" >
-
-            <!-- /.dropdown -->
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #94BCF7">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i><%=a.getName()%><i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
+                    <li class="divider"></li>
                     <li><a href="logout.ddf"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
                     </li>
                 </ul>
@@ -83,9 +86,11 @@
             </li>
             <!-- /.dropdown -->
         </ul>
+
         <!-- /.navbar-top-links -->
-        <div class="navbar-default sidebar" role="navigation"  style="background: #D8EBF5;">
-            <div class="sidebar-nav navbar-collapse" style="background: #D8EBF5;">
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu" style="background: #D8EBF5;" >
                     <li>
                         <a href="admin.jsp"><i class="fa fa-dashboard fa-fw"></i> 控制面板</a>
@@ -133,7 +138,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">发通知</h1>
+                <h1 class="page-header">删除学生</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -142,43 +147,38 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        发布的通知将会在首页显示
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <form role="form" action="sendmes.ddf" method="post" >
-                                    <div class="form-group">
-                                        <label>标题</label>
-                                        <input class="form-control" name="title">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>正文</label>
-                                        <textarea class="form-control" rows="3" name="mes"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>跳转地址（url）</label>
-                                        <input class="form-control" name="url">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>设置权限</label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline1" value="1">班委
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline2" value="2">寝室长(班委可见)
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="level" id="optionsRadiosInline3" value="3" checked>所有人可见
-                                        </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-default">提交</button>
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </form>
-                            </div>
 
-                        </div>
-                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                                <th>手机号</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                ArrayList<User> users = jdbc.list();
+                                for(User u : users){
+                            %>
+                            <tr class="gradeU">
+                                <td><%=u.getName()%></td>
+                                <td><%=u.getId()%></td>
+                                <td><a href="tel:<%=u.getPhone()%>"><%=u.getPhone()%></a></td>
+                                <td><a href="deleteuser.ddf?id=<%=u.getId()%>">删除</a></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                            </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -187,7 +187,15 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+
+
     </div>
+    <!-- /.row -->
+
+    <!-- /.row -->
+</div>
+
+    <!-- /#page-wrapper -->
     <!-- /#page-wrapper -->
 
 </div>
@@ -202,9 +210,47 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
+<!-- DataTables JavaScript -->
+<script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="vendor/datatables-responsive/dataTables.responsive.js"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
 
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
+<script type="application/javascript">
+    function a (i){
+
+
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag == true){
+            top.location='tencent://message/?uin='+i;
+
+        }
+        else {
+            top.location='mqqwpa://im/chat?chat_type=wpa&uin='+i+'&version=1';
+        }
+        //history.back();
+    }
+</script>
 </body>
 
 </html>

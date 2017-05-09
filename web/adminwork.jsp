@@ -109,7 +109,19 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="adminaddress.jsp"><i class="fa fa-table fa-fw"></i> 学生信息列表</a>
+                        <a href="#"><i class="fa fa-table fa-fw"></i>学生管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="adminaddress.jsp"> 学生信息列表</a>
+                            </li>
+                            <li>
+                                <a href="adduser.jsp">添加学生</a>
+                            <li>
+                                <a href="deleteuser.jsp">删除学生</a>
+                            </li>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="sendmes.jsp"><i class="fa fa-comments fa-fw"></i> 发送通知</a>
