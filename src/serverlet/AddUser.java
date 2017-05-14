@@ -19,6 +19,8 @@ public class AddUser extends HttpServlet {
         System.out.println(request.getParameter("name"));
         JdbcConn jdbc = new JdbcConn();
         jdbc.add(request.getParameter("id"),request.getParameter("name"),request.getParameter("id"),request.getParameter("phone"),request.getParameter("qq"),request.getParameter("mail"),Integer.parseInt(request.getParameter("level")));
+        jdbc.addgrade(request.getParameter("id"),request.getParameter("name"));
+        jdbc.addhome(request.getParameter("id"),request.getParameter("name"));
         response.sendRedirect("adminsucceed.html");
     }
 

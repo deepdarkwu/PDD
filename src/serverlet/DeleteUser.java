@@ -23,6 +23,8 @@ public class DeleteUser extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         JdbcConn jdbc = new JdbcConn();
         jdbc.delete(request.getParameter("id"));
+        jdbc.deletegh(request.getParameter("id"),"grade");
+        jdbc.deletegh(request.getParameter("id"),"uphomework");
         response.sendRedirect("adminsucceed.html");
     }
 }

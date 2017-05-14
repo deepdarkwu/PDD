@@ -388,6 +388,41 @@ public class JdbcConn {
 		r.add(i);r.add(j);r.add(k);r.add(l);r.add(m);
 		return r;
 	}
+
+	public boolean addgrade(String id,String name){
+		String sql="insert into grade(id,name) values('"+id+"','"+name+") ";
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+	public boolean addhome(String id,String name){
+		String sql="insert into uphomework(id,name) values('"+id+"','"+name+") ";
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean deletegh(String id,String table){
+		String sql="DELETE FROM `"+table+"` WHERE id="+id;
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 //	    public static void free()  
 //	    {  
 //	        
