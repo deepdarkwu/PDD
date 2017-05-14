@@ -335,6 +335,59 @@ public class JdbcConn {
 		}
 		System.out.println("成功向user表中更新" + i + "条记录");
 	}
+
+	public ArrayList<Integer> adminave(){
+		ArrayList<Integer> s = new ArrayList<Integer>();
+		ArrayList<User> users = list();
+		for(User u : users){
+			ArrayList<PersonGrade> pg = getPensonGrade(u.getId());
+			int i=0;
+			int a=0;
+			for(PersonGrade p : pg){
+
+				if(!p.getScore().equals("0")){
+					i++;
+					a=a+Integer.parseInt(p.getScore());
+				}
+			}
+			if(i!=0) {
+				s.add(a / i);
+				System.out.println(a / i);
+			}
+			}
+			return s;
+	}
+
+	public ArrayList<Integer> ave(String id) {
+		ArrayList<Integer> s = new ArrayList<Integer>();
+				ArrayList<PersonGrade> pg = getPensonGrade(id);
+				for (PersonGrade p : pg) {
+					if (!p.getScore().equals("0")) {
+						s.add(Integer.parseInt(p.getScore()));
+					}
+				}
+				return s;
+
+	}
+	public ArrayList<Integer> chart(ArrayList<Integer> all){
+		ArrayList<Integer> r = new ArrayList<Integer>();
+		int i=0,j=0,k=0,l=0,m=0;
+		for(Integer s : all){
+			if(s<60){
+				i++;
+			}else if(s>=60&&s<70){
+				j++;
+			}else if(s>=70&&s<80){
+				k++;
+			}else if(s>=80&&s<90){
+				l++;
+			}else{
+				m++;
+			}
+		}
+		r.add(i);r.add(j);r.add(k);r.add(l);r.add(m);
+		return r;
+	}
 //	    public static void free()  
 //	    {  
 //	        

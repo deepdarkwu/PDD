@@ -274,7 +274,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        及格率
+                        个人平均分分布
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -367,23 +367,27 @@
 
 <script type="application/javascript">
     //Flot Pie Chart
+    <%
+        ArrayList<Integer> ave = jdbc.chart(jdbc.adminave());
+        //jdbc.adminave();
+    %>
     $(function() {
 
         var data = [{
             label: "不及格",
-            data: 25
+            data: <%=ave.get(0)%>
         }, {
             label: "60-70",
-            data: 25
+            data: <%=ave.get(1)%>
         }, {
             label: "70-80",
-            data: 25
+            data: <%=ave.get(2)%>
         }, {
             label: "80-90",
-            data: 25
+            data: <%=ave.get(3)%>
         }, {
             label: "90-100",
-            data: 25
+            data: <%=ave.get(4)%>
         }];
 
         var plotObj = $.plot($("#flot-pie-chart"), data, {
