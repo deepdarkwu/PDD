@@ -1,6 +1,7 @@
 <%@ page import="bean.Admin" %>
 <%@ page import="tool.JdbcConn" %>
-<%@ page import="bean.User" %><%--
+<%@ page import="bean.User" %>
+<%@ page import="tool.ZIP" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/5/7
@@ -161,29 +162,36 @@
                             </tr>
                             </thead>
                             <tbody>
-        <%
-            JdbcConn jdbc = new JdbcConn();
-            //System.out.println(jdbc.nothomework(request.getParameter("id")).size());
-            for(String s : jdbc.nothomework(request.getParameter("id"))){
-                User u = jdbc.getuserbyid(s);
+                            <%
+                                JdbcConn jdbc = new JdbcConn();
+                                //System.out.println(jdbc.nothomework(request.getParameter("id")).size());
+                                for(String s : jdbc.nothomework(request.getParameter("id"))){
+                                    User u = jdbc.getuserbyid(s);
 
-        %>
+                            %>
                             <tr class="gradeU">
                                 <td><%=u.getName()%></td>
                                 <td><a href="tel:<%=u.getPhone()%>"><%=u.getPhone()%></a></td>
                                 <td><a href="mailto:<%=u.getMail()%>"><%=u.getMail()%></a></td>
                                 <td onclick="a('<%=u.getQq()%>')"><a style="cursor: pointer;"><%=u.getQq()%></a></td>
                             </tr>
-        <%
-            }
-        %>
+                            <%
+                                }
+                            %>
                             </tbody>
                         </table>
 
                     </div>
                     <!-- /.panel-body -->
                 </div>
-                <button type="button" class="btn btn-primary">打包下载</button>
+
+                <%
+                    ZIP zip=new ZIP();
+                    zip.zip(request.getParameter("id"));
+
+                %>
+                <button type="button" class="btn btn-primary" onclick="download()">打包下载</button>
+
 
                 <!-- /.panel -->
             </div>
@@ -218,6 +226,11 @@
             top.location='mqqwpa://im/chat?chat_type=wpa&uin='+i+'&version=1';
         }
         //history.back();
+
+    }
+    function  download() {
+        top.location="file/work.rar";
+
     }
 </script>
 <!-- jQuery -->
