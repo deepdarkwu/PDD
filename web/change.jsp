@@ -53,7 +53,7 @@
 </head>
 
 <body>
-<form class="box login">
+<form class="box login"  onsubmit="return check();" name="form" method="post" action="changeinfo.ddf">
     <fieldset class="boxBody">
         <label>密码</label>
         <input type="password"  placeholder="密码" name="password" type="password" value="<%=u.getPassword()%>">
@@ -82,7 +82,42 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
+<script type="text/javascript">
 
+    function check()
+    {
+        if(form.phone.value.length!=11)
+        {
+            alert('电话不合法');
+            form.phone.focus();
+            return false;
+        }
+        if(form.mail.value.length<1)
+        {
+            alert('邮箱不合法');
+            form.mail.focus();
+            return false;
+        }
+        if(form.qq.value.length<6 || form.id.value.length>16)
+        {
+            alert('qq账号不合法');
+            form.qq.focus();
+            return false;
+        }
+        if(form.password.value.length<6 ||form.password.value.length>16)
+        {
+            alert('密码不合法！请输入6-16位密码');
+            form.password.focus();
+            return false;
+        }
+        if(form.password.value != form.password2.value)//判断两次输入的密码是否一致
+        {
+            alert("两次输入的密码不一致！");
+            form.password2.focus();
+            return false;
+        }
+    }
+</script>
 </body>
 
 </html>

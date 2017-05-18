@@ -152,7 +152,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" method="post" action="add.ddf">
+                                <form role="form" method="post" action="add.ddf" onsubmit="return check();" name="form">
                                     <div class="form-group">
                                         <label>姓名</label>
                                         <input class="form-control" name="name">
@@ -257,6 +257,43 @@
             top.location='mqqwpa://im/chat?chat_type=wpa&uin='+i+'&version=1';
         }
         //history.back();
+    }
+</script>
+<script type="text/javascript">
+
+    function check()
+    {
+        if(form.id.value.length!=8)
+        {
+            alert('id不合法！请输入8位整数');
+            form.id.focus();
+            return false;
+        }
+        if(form.name.value =="")//判断两次输入的密码是否一致
+        {
+            alert("请输入姓名");
+            form.name.focus();
+            return false;
+        }
+        if(form.phone.value.length!=11)
+        {
+            alert('电话不合法');
+            form.phone.focus();
+            return false;
+        }
+        if(form.mail.value.length<1)
+        {
+            alert('邮箱不合法');
+            form.mail.focus();
+            return false;
+        }
+        if(form.qq.value.length<6 || form.id.value.length>16)
+        {
+            alert('qq账号不合法');
+            form.qq.focus();
+            return false;
+        }
+
     }
 </script>
 </body>

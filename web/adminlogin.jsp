@@ -59,7 +59,7 @@
                         %></h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" action="admin.ddf" method="post">
+                    <form role="form" action="admin.ddf" method="post"  onsubmit="return check();" name="form">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="账号" name="id" autofocus>
@@ -94,7 +94,25 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
-
+<script type="text/javascript">
+    //验证信息填写是否有误
+    function check()
+    {
+        // alert("adsf");
+        if(form.id.value.length<6 || form.id.value.length>16)
+        {
+            alert('用户名不合法！请输入6-16位用户名');
+            form.id.focus();
+            return false;
+        }
+        if(form.password.value.length<6 ||form.password.value.length>16)
+        {
+            alert('密码不合法！请输入6-16位密码');
+            form.id.focus();
+            return false;
+        }
+    }
+</script>
 </body>
 
 </html>
