@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,7 +61,9 @@ public class Homework extends HttpServlet{
         String uploadPath = "C:\\Users\\wzf\\Desktop\\upload"+File.separator ;
 
 //根据存储路径生成文件夹
-
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("user");
+        JdbcConn jdbc = new JdbcConn();
         try{
             List<FileItem> formItems = upload.parseRequest(request);
 
@@ -69,10 +72,8 @@ public class Homework extends HttpServlet{
                     if (item.isFormField()) {
                         processFormField(item); //处理普通的表单域
                         System.out.println(subject);
-                        HttpSession session = request.getSession();
-                        User u = (User)session.getAttribute("user");
-                        JdbcConn jdbc = new JdbcConn();
-                        jdbc.setwork(u.getId(),subject);
+
+
                     }
                     else {
                         uploadPath = "C:\\Users\\wzf\\Desktop\\upload"+File.separator +subject;
@@ -88,8 +89,14 @@ public class Homework extends HttpServlet{
         }
         catch (Exception ex){
             request.setAttribute("message", "有错误 " + ex.getMessage());
+            response.sendRedirect("wrong.html");
         }
         //getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
+        try {
+            jdbc.setwork(u.getId(),subject);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         response.sendRedirect("succeed.html");
     }
 

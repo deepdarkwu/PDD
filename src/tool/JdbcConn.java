@@ -423,27 +423,17 @@ public class JdbcConn {
 		}
 		return true;
 	}
-//	    public static void free()  
-//	    {  
-//	        
-//	            try  
-//	            {  
-//	                if(stmt!=null)  
-//	                    stmt.close();  
-//	            } catch (SQLException e) {  
-//	                // TODO Auto-generated catch block  
-//	                e.printStackTrace();  
-//	            }  
-//	            finally  
-//	            {  
-//	                if(conn!=null)  
-//	                    try {  
-//	                        conn.close();  
-//	                    } catch (SQLException e) {  
-//	                        // TODO Auto-generated catch block  
-//	                        e.printStackTrace();  
-//	                    }  
-//	            }  
-//	        }  
+
+	public boolean deletemess(String id){
+		String sql="DELETE FROM `message` WHERE id="+id;
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	     
 }

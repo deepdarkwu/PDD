@@ -1,7 +1,10 @@
 <%@ page import="bean.User" %>
 <%@ page import="tool.JdbcConn" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.HomeWork" %><%--
+<%@ page import="bean.HomeWork" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.ParseException" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/4/21
@@ -151,13 +154,19 @@
                                         <label>选择科目</label>
                                         <select name="subject" class="form-control" >
                                             <%
+                                                Date now = new Date();
                                                 JdbcConn jdbc = new JdbcConn();
                                                 ArrayList<HomeWork> works = jdbc.homeworkList();
                                                 for(HomeWork w :works){
 
+                                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                                    Date date = sdf.parse(w.getDate());
+
+                                                    if(now.before(date)){
                                             %>
                                             <option value="<%=w.getId()%>"><%=w.getSubject()%></option>
                                             <%
+                                                    }
                                                 }
                                             %>
                                         </select>

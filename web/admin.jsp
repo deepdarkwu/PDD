@@ -168,7 +168,7 @@
                         </div>
 
                     </div>
-                    <a href="#tongzhi">
+                    <a href="sendmes.jsp">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -198,7 +198,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="address.jsp">
+                    <a href="adminaddress.jsp">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -229,7 +229,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="GradeAll.jsp">
+                    <a href="gradeall.jsp">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -259,7 +259,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="HomeWorkAll.jsp">
+                    <a href="adminwork.jsp">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -305,7 +305,10 @@
                                         i++;
                             %>
                             <li <% if(i%2==0){out.print("class=\"timeline-inverted\"");}%> onclick="infourl('<%=m.getUrl()%>')">
-                                <div class="timeline-badge"><i class="fa"><%=m.getLevel()%></i>
+                                <div class="timeline-badge" style="font-size: 15px"><i class="fa"><%if(m.getLevel()==1)out.print("班委");
+                                else if(m.getLevel()==2)out.print("寝室长");
+                                else if(m.getLevel()==3)out.print("学生");
+                                else{}%></i>
                                 </div>
                                 <div class="timeline-panel <% if(m.getLevel()==0)out.print(success);
                                                                         else if(m.getLevel()==1)out.print(warn);
@@ -322,6 +325,7 @@
 
                                     </div>
                                     <a href="<%=m.getUrl()%>" style="font-size: 12px;">点我直接进入</a>
+                                    <a href="deletemess.ddf?id=<%=m.getId()%>" style="font-size: 12px; color:red;">删除</a>
                                 </div>
                             </li>
                             <%

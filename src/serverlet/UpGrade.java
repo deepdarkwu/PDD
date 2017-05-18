@@ -28,6 +28,7 @@ public class UpGrade extends HttpServlet {
             jdbc.addpgrade(u,request.getParameter("subject"),Integer.parseInt(request.getParameter("score")));
         } catch (SQLException e) {
             e.printStackTrace();
+            response.sendRedirect("wrong.html");
         }
         response.sendRedirect("succeed.html");
     }

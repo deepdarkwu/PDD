@@ -301,12 +301,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             i++;
                                 %>
                                 <li <% if(i%2==0){out.print("class=\"timeline-inverted\"");}%> onclick="infourl('<%=m.getUrl()%>')">
-                                    <div class="timeline-badge"><i class="fa"><%=m.getLevel()%></i>
+                                    <div class="timeline-badge" style="font-size: 15px"><i class="fa"><%if(m.getLevel()==1)out.print("班委");
+                                    else if(m.getLevel()==2)out.print("寝室长");
+                                    else if(m.getLevel()==3)out.print("学生");
+                                    else{}%></i>
                                     </div>
-                                    <div class="timeline-panel <% if(m.getLevel()==0)out.print(success);
-                                                                        else if(m.getLevel()==1)out.print(warn);
-                                                                        else if(m.getLevel()==2)out.print(info);
-                                                                        else  if(m.getLevel()==3)out.print(danger);
+                                    <div class="timeline-panel <% if(m.getLevel()==1)out.print(success);
+                                                                        else if(m.getLevel()==2)out.print(warn);
+                                                                        else if(m.getLevel()==3)out.print(info);
                                                                         else{}%>">
                                         <div class="timeline-heading">
                                             <h4 class="timeline-title"><%=m.getTitle()%></h4>

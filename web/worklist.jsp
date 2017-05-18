@@ -167,7 +167,7 @@
                                 <td><%=w.getSubject()%></td>
                                 <td><%=w.getDate()%></td>
                                 <td><%=jdbc.worksucnum(w.getId())%></td>
-                                <td><a href="upload.jsp">前往</td>
+                                <td><a href="update.jsp">前往</td>
                             </tr>
                             <%
                                 }

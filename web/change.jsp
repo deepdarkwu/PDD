@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>登录</title>
+    <title>修改个人信息</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +30,9 @@
 
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/structure.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,41 +53,23 @@
 </head>
 
 <body>
+<form class="box login">
+    <fieldset class="boxBody">
+        <label>密码</label>
+        <input type="password"  placeholder="密码" name="password" type="password" value="<%=u.getPassword()%>">
+        <label>再次输入密码</label>
+        <input type="password"  placeholder="二次密码" name="password2" type="password" value="<%=u.getPassword()%>">
+        <label>电话</label>
+        <input type="text" placeholder="电话" name="phone" type="text" value="<%=u.getPhone()%>">
+        <label>QQ</label>
+        <input type="text"  placeholder="QQ" name="qq" type="text" value="<%=u.getQq()%>">
+        <label>邮箱</label>
+        <input type="text"  placeholder="邮箱" name="mail" type="text" value="<%=u.getMail()%>">
+    </fieldset>
+        <br>
+        <input type="submit" class="btn btn-success center-block" value="修改"></input>
 
-<div class="container" style="top:-400px">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4"style=" top:-90px">
-            <div class="login-panel panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">更改个人信息</h3>
-                </div>
-                <div class="panel-body">
-                    <form role="form" action="changeinfo.ddf" method="post">
-                        <fieldset>
-                            <div class="form-group">
-                                <h3>密码</h3><input class="form-control" placeholder="密码" name="password" type="password" value="<%=u.getPassword()%>">
-                            </div>
-                            <div class="form-group">
-                                <h3>二次输入密码</h3><input class="form-control" placeholder="二次密码" name="password2" type="password" value="<%=u.getPassword()%>">
-                            </div>
-                            <div class="form-group">
-                                <h3>电话</h3><input class="form-control" placeholder="电话" name="phone" type="text" value="<%=u.getPhone()%>">
-                            </div>
-                            <div class="form-group">
-                                <h3>QQ</h3><input class="form-control" placeholder="QQ" name="qq" type="text" value="<%=u.getQq()%>">
-                            </div>
-                            <div class="form-group">
-                                <h3>邮箱</h3><input class="form-control" placeholder="邮箱" name="mail" type="text" value="<%=u.getMail()%>">
-                            </div>
-                            <!-- Change this to a button or input when using this as a form -->
-                            <input type="submit" class="btn btn-lg btn-success btn-block" value="修改"></input>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</form>
 
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
