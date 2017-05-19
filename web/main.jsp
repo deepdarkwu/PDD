@@ -283,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <!-- /.panel -->
                     <div class="panel panel-default" id="tongzhi">
                         <div class="panel-heading">
-                            <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                            通知
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

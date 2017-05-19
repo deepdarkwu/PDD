@@ -1,11 +1,8 @@
-<%@ page import="tool.JdbcConn" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="bean.HomeWork" %>
 <%@ page import="bean.Admin" %><%--
   Created by IntelliJ IDEA.
   User: wzf
   Date: 2017/5/7
-  Time: 18:22
+  Time: 19:17
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -142,7 +139,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">作业总览</h1>
+                <h1 class="page-header">添加科目</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -151,38 +148,25 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        点击“详情”查看未提交的学生姓名并打包下载作业
+                        需要提交成绩的科目
                     </div>
-                    <!-- /.panel-heading -->
                     <div class="panel-body">
-                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                            <thead>
-                            <tr>
-                                <th>科目</th>
-                                <th>截止日期</th>
-                                <th>提交人数</th>
-                                <th>前往</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form" method="post" action="upgrade.ddf">
+                                    <div class="form-group">
+                                        <label>科目</label>
+                                        <input class="form-control" name="subject">
+                                    </div>
 
-                            <%
-                                JdbcConn jdbc = new JdbcConn();
-                                ArrayList<HomeWork> works = jdbc.homeworkList();
-                                for(HomeWork w : works){
-                            %>
-                            <tr class="gradeU">
-                                <td><%=w.getSubject()%></td>
-                                <td><%=w.getDate()%></td>
-                                <td><%=jdbc.worksucnum(w.getId())%></td>
-                                <td><a href="worktable.jsp?id=<%=w.getId()%>">详情</a></td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                            </tbody>
-                        </table>
+                                    <button type="submit" class="btn btn-default">提交</button>
+                                    <button type="reset" class="btn btn-default">重置</button>
+                                </form>
+                            </div>
 
+                            <!-- /.col-lg-6 (nested) -->
+                        </div>
+                        <!-- /.row (nested) -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -212,3 +196,4 @@
 </body>
 
 </html>
+

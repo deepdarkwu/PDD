@@ -123,6 +123,9 @@
                     <li>
                         <a href="newhomework.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布作业</a>
                     </li>
+                    <li>
+                        <a href="addsuject.jsp"><i class="fa fa-file-text-o fa-fw"></i> 发布成绩提交</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->

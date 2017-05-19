@@ -314,6 +314,19 @@ public class JdbcConn {
 
 	}
 
+	public boolean upgrade(String subject) throws SQLException {
+		String sql="insert into upgrade(subject) values('"+subject+"')";
+		try {
+			int i=stmt.executeUpdate(sql);
+			System.out.println(i);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getidbysub2(subject);
+		return true;
+
+	}
 	void getidbysub(String subject) throws SQLException {
 		String sql = "SELECT id FROM homework WHERE `subject`=\""+subject+"\"";
 		String s=null;
@@ -322,6 +335,16 @@ public class JdbcConn {
 		while (rs.next()) s=rs.getString("id");
 		System.out.println(s);
 		addtablemes("uphomework",s);
+	}
+
+	void getidbysub2(String subject) throws SQLException {
+		String sql = "SELECT id FROM upgrade WHERE `subject`=\""+subject+"\"";
+		String s=null;
+		System.out.println(sql);
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) s=rs.getString("id");
+		System.out.println(s);
+		addtablemes("grade",s);
 	}
 	void addtablemes(String table,String mes){
 
@@ -341,10 +364,8 @@ public class JdbcConn {
 		ArrayList<User> users = list();
 		for(User u : users){
 			ArrayList<PersonGrade> pg = getPensonGrade(u.getId());
-			int i=0;
-			int a=0;
+			int i=0,a=0;
 			for(PersonGrade p : pg){
-
 				if(!p.getScore().equals("0")){
 					i++;
 					a=a+Integer.parseInt(p.getScore());
