@@ -142,7 +142,8 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">数据结构</h1>
+                <%JdbcConn jdbc = new JdbcConn();%>
+                <h1 class="page-header"><%=jdbc.getsubjectbyid(Integer.parseInt(request.getParameter("id")))%></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -166,7 +167,7 @@
                             </thead>
                             <tbody>
                             <%
-                                JdbcConn jdbc = new JdbcConn();
+
                                 //System.out.println(jdbc.nothomework(request.getParameter("id")).size());
                                 for(String s : jdbc.nothomework(request.getParameter("id"))){
                                     User u = jdbc.getuserbyid(s);

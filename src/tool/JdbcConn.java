@@ -166,6 +166,7 @@ public class JdbcConn {
 		return pg;
 	}
 
+
 	public boolean changeinfo(String id,String pass,String phone,String qq,String mail) throws SQLException {
 
 		String sql = "UPDATE `users` SET `password`="+pass+",`phone`="+phone+",`qq`="+qq+",`mail`=\""+mail+"\" WHERE id="+id;
@@ -455,6 +456,21 @@ public class JdbcConn {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	public String getsubjectbyid(int i){
+		ArrayList<Grade> grades =new ArrayList<Grade>();
+		String sql = "SELECT * FROM homework WHERE id="+i;
+		try{
+			ResultSet rs = stmt.executeQuery(sql);
+			//STEP 5: Extract data from result set
+			while(rs.next()){
+				return rs.getString("subject");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "";
 	}
 	     
 }
