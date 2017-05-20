@@ -146,7 +146,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" action="grade.ddf" method="post">
+                                <form role="form" name="form"  onsubmit="return check();" action="grade.ddf" method="post">
 
                                     <div class="form-group">
                                         <label>选择科目</label>
@@ -209,6 +209,28 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
+<script>
+    function check()
+    {
+        if(form.score.value==""){
+            alert('请输入成绩');
+            form.score.focus();
+            return false;
+        }
+        if(isNaN(form.score.value)){
+            alert('请输入数字');
+            form.score.focus();
+            return false;
+        }
+        if(form.score.value<0 || form.score.value>100)
+        {
+            alert('成绩不合法');
+            form.score.focus();
+            return false;
+        }
+
+    }
+</script>
 </body>
 
 </html>
